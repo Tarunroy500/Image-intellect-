@@ -37,7 +37,7 @@ def input_image_setup(uploaded_file):
                 "data": bytes_data
             }
         ]
-        return image_parts]
+        return image_parts
     else:
         raise FileNotFoundError("No file uploaded")
 
