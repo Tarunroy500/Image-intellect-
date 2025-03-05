@@ -9,7 +9,8 @@ import os
 import pathlib
 import textwrap
 from PIL import Image
-
+from PIL import ImageFile       # added import for handling truncated images
+ImageFile.LOAD_TRUNCATED_IMAGES = True   # added flag to load truncated images
 
 import google.generativeai as genai
 # 
@@ -20,7 +21,7 @@ genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 ## Function to load OpenAI model and get respones
 
 def get_gemini_response(input,image,prompt):
-    model = genai.GenerativeModel('gemini-pro-vision')
+    model = genai.GenerativeModel('gemini-1.5-pro')
     response = model.generate_content([input,image[0],prompt])
     return response.text
     
@@ -37,7 +38,7 @@ def input_image_setup(uploaded_file):
                 "data": bytes_data
             }
         ]
-        return image_parts]
+        return image_parts
     else:
         raise FileNotFoundError("No file uploaded")
 
